@@ -43,7 +43,7 @@
                         <div class="media">
                             <div class="media-body">
                                 {!! $answer->body_html !!}
-                            </div>
+                            
                             <div class="float-right">
                                 <span class="text-muted"> Answered {{ $answer->created_date }}</span>
                                 <div class="media mt-2">
@@ -54,6 +54,7 @@
                                         <a href="{{ $answer->user->url}}">{{ $answer->user->name}}</a>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         </div>
                         <hr>
