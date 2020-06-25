@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Parsedown;
 
 class Question extends Model
 {
@@ -37,7 +38,7 @@ class Question extends Model
     }
 
     public function getBodyHtmlAttribute(){
-        return \Parsedown::instance()->text($this->body);
+        return Parsedown::instance()->text($this->body);
     }
 
     public function answers(){
@@ -47,6 +48,25 @@ class Question extends Model
     public function acceptBestAnswer(Answer $answer){
         $this->best_answer_id = $answer->id;
         $this->save();
+    }
+
+    public function favorites(){
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
+    }
+
+    public function isFavorited()
+    {
+        return $this->favorites()->where('user_id', auth()->id())->count() > 0;
+    }
+
+    public function getIsFavoritedAttribute()
+    {
+        return $this->isFavorited();
+    }
+
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites->count();
     }
 
 }
