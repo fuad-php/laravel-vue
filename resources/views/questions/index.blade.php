@@ -49,7 +49,7 @@
                                Asked By  <a href="{{ $question->user->url }}" >{{ $question->user->name }}</a>
                                <small class="text-muted">{{$question->created_date}}</small>
                             </p>
-                            {{ Str::limit($question->body,250) }}
+                            {{ $question->excerpt(200) }}
                         </div>
                     </div>
                     <hr>
